@@ -1,7 +1,7 @@
 ---
 layout: ../layouts/Layout.astro
-title: Academic Project Page Template
-description: Simple project page template for your research paper, built with Astro and Tailwind CSS
+title: "RoboSpatial: Teaching Spatial Understanding to 2D and 3D Vision-Language Models for Robotics"
+description: Webpage for RoboSpatial
 favicon: favicon.svg
 thumbnail: screenshot.png
 ---
@@ -30,52 +30,63 @@ export const components = {pre: CodeBlock, table: Table}
   title={frontmatter.title}
   authors={[
     {
-      name: "Roman Hauksson",
-      url: "https://roman.technology",
-      institution: "Independent",
-      notes: ["*", "†"],
+      name: "Chan Hee Song",
+      url: "https://chanh.ee",
+      institution: "The Ohio State University",
+      notes: ["*"],
     },
     {
-      name: "Author Two",
-      institution: "Institution Two",
-      notes: ["*", "†"],
+      name: "Valts Blukis",
+      institution: "Nvidia",
+      url: "https://research.nvidia.com/person/valts-blukis",
+      notes: [],
     },
     {
-      name: "Author Three",
-      institution: "Institution Three",
-      notes: ["†"],
+      name: "Jonathan Tremblay",
+      institution: "Nvidia",
+      url: "https://research.nvidia.com/person/jonathan-tremblay",
+      notes: [],
     },
     {
-      name: "Author Four",
-      institution: "Institution Four",
+      name: "Stephen Tyree",
+      institution: "Nvidia",
+      url: "https://research.nvidia.com/person/stephen-tyree",
+    },
+    {
+      name: "Yu Su",
+      url: "https://ysu1989.github.io/",
+      institution: "The Ohio State University",
+    },
+    {
+      name: "Stan Birchfield",
+      url: "https://research.nvidia.com/person/stan-birchfield",
+      institution: "Nvidia",
     },
   ]}
-  conference="Conference Name"
+  conference=""
   notes={[
     {
       symbol: "*",
-      text: "author note one",
-    },
-    {
-      symbol: "†",
-      text: "author note two",
+      text: "Work done during Nvidia internship",
     },
   ]}
   links={[
     {
-      name: "Paper",
-      url: "",
+      name: "ArXiv",
+      url: "https://arxiv.org/abs/2411.16537",
       icon: "fa-solid:file-pdf",
     },
     {
       name: "Code",
-      url: "https://github.com/RomanHauksson/academic-project-astro-template",
+      url: "",
       icon: "mdi:github",
+      disabled: true,
     },
     {
-      name: "arXiv",
+      name: "Dataset",
       url: "",
-      icon: "academicons:arxiv",
+      icon: "mdi:database",
+      disabled: true
     },
   ]}
   />
@@ -145,10 +156,10 @@ You can add simple tables using [GitHub Flavored Markdown syntax](https://docs.g
 ## BibTeX citation
 
 ```bibtex
-@misc{roman2024academic,
-  author = "{Roman Hauksson}",
-  title = "Academic Project Page Template",
-  year = "2024",
-  howpublished = "\url{https://research-template.roman.technology}",
+@article{song2024robospatial,
+  author  = {Chan Hee Song, Valts Blukis, Jonathan Tremblay, Stephen Tyree, Yu Su, Stan Birchfield},
+  title   = {RoboSpatial: Teaching Spatial Understanding to 2D and 3D Vision-Language Models for Robotics},
+  year    = {2024},
+  journal = {arXiv preprint arXiv:2411.16537},
 }
 ```
