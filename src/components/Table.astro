@@ -1,9 +1,18 @@
 ---
 
+interface Props {
+  caption: string;
+}
+
+const { caption } = Astro.props;
 ---
 
+
 <div class="px-6 w-full">
-  <table class="w-full">
+  <table class="table-auto mx-auto">
     <slot />
+    <caption>
+      {caption}
+    </caption>
   </table>
 </div>

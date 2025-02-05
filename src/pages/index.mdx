@@ -2,8 +2,8 @@
 layout: ../layouts/Layout.astro
 title: "RoboSpatial: Teaching Spatial Understanding to 2D and 3D Vision-Language Models for Robotics"
 description: Webpage for RoboSpatial
-favicon: favicon.svg
-thumbnail: screenshot.png
+favicon: favicon.ico
+# thumbnail: screenshot.png
 ---
 
 import Layout from "../layouts/Layout.astro";
@@ -18,13 +18,17 @@ import TwoColumns from "../components/TwoColumns.astro";
 import YouTubeVideo from "../components/YouTubeVideo.astro";
 import LaTeX from "../components/LaTeX.astro";
 
-import outside from "../assets/outside.mp4";
-import transformer from "../assets/transformer.webp";
-import Splat from "../components/Splat.tsx"
-
 import CodeBlock from "../components/CodeBlock.astro";
 import Table from "../components/Table.astro";
 export const components = {pre: CodeBlock, table: Table}
+
+{/* Image imports */}
+import fig1 from "../assets/fig1_new.png";
+import fig2 from "../assets/fig2.png";
+import fig3 from "../assets/fig3.png";
+import robot_exp from "../assets/robot_exp.png";
+
+
 
 <Header
   title={frontmatter.title}
@@ -91,27 +95,27 @@ export const components = {pre: CodeBlock, table: Table}
   ]}
   />
 
-<Video source={outside} />
+{/* <Video source={outside} /> */}
 
 <HighlightedSection>
 
-## Abstract
+## Overview
 
-This is a live demo for a template you can use to create a simple project page for your research paper. See the code for the template and instructions on how to use it yourself [here](https://github.com/RomanHauksson/academic-project-astro-template). It's made with the [Astro web framework](https://astro.build/) and styled with [Tailwind CSS](https://tailwindcss.com/). You write the content in [MDX](https://mdxjs.com/), which enables markdown formatting like **bold**, _italics_, and ~strikethrough~, as well as custom components like <SmallCaps>small caps.</SmallCaps>
+**TL;DR** 1) A new training dataset and benchmark, **RoboSpatial** and **RoboSpatial-Home**, comprising images and 3D scans paired with spatial questions and answers, designed for robotics. 2) **RoboSpatial** trained model outperforms prior SOTA VLMs on natural language-specified robot manipulation tasks and indoor spatial scene question answering.
+
+Spatial understanding is essential for robots to perceive, reason about, and interact with their environments. However, current visual language models often rely on general-purpose image datasets that lack robust spatial scene understanding and reference frame comprehension (ego-, object-, or world-centric). To address this gap, we introduce **RoboSpatial**, a large-scale dataset of **real indoor and tabletop environments** captured via egocentric images and 3D scans. RoboSpatial provides **1M images, 5K 3D scans, and 3M annotated spatial relationships**, enabling both 2D and 3D spatial reasoning. Models trained on RoboSpatial outperform baselines on tasks including spatial affordance prediction, spatial relationship prediction, and robotics manipulation.
 
 </HighlightedSection>
 
-## Figures
-
-Use the figure component to display images, videos, equations, or any other element, with an optional caption.
+## RoboSpatial Application Example
 
 <Figure
-    caption="Diagram of the transformer deep learning architecture."
+    caption="An illustration of a model trained on RoboSpatial being used to solve a manipulation task using spatial reasoning."
   >
-    <Image source={transformer} altText="Diagram of the transformer deep learning architecture." />
+    <Image source={fig1} altText="An illustration of a model trained on RoboSpatial being used to solve a manipulation task using spatial reasoning." />
 </Figure>
 
-## Two columns
+{/* ## Two columns
 
 Use the two columns component to display two columns of content. In this example, the first column contains a figure with a YouTube video and the second column contains a figure with a custom [React](https://react.dev/) component. By default, they display side by side, but if the screen is narrow enough (for example, on mobile), they're arranged vertically.
 
@@ -122,36 +126,67 @@ Use the two columns component to display two columns of content. In this example
   <Figure slot="right" caption="Now look at this Gaussian Splat, rendered with a React component.">
     <Splat client:idle />
   </Figure>
-</TwoColumns>
+</TwoColumns> */}
 
-## Heading levels
+## Overview
 
-Use headings to divide your content into sections.
+<Figure
+    caption="We automatically generate spatial relationship annotations from existing datasets with 3D point clouds, egocentric images, and 3D bounding box annotations. We create question/answer pairs covering three classes of spatial relationships, three spatial reference frames, and both binary (yes/no) and numeric (e.g. 2D image points) answers. From 1M images and 1.4K scans, we generate over 3M spatial question/answer pairs."
+  >
+    <Image source={fig2} altText="An overview of RoboSpatial Dataset." />
+</Figure>
 
-### Heading 3
 
-Go down a level to heading 3...
 
-#### Heading 4
+## Evaluation Results
 
-...and down again to heading 4.
+### Spatial QA
 
-## LaTeX
+<Figure
+    caption="Results of RoboSpatial-trained models on RoboSpatial validation set, RoboSpatial-Home and BLINK. Two models are shown: SL (SpaceLLaVA) and RP (RoboPoint), where the S- prefix and FT indicates RoboSpatial-trained models. For Yes/No questions, the green checkmark indicates the correct answer. For spatial context questions, GT indicates the correct answer. For in-domain, all questions are from RoboSpatial validation. For out-of-domain, all images except for the top right are from RoboSpatial-Home."
+  >
+    <Image source={fig3} altText="Qualitative Results of RoboSpatial-trained models." />
+</Figure>
 
-You can also add LaTeX formulas, rendered during the build process using [KaTeX](https://katex.org/) so they're quick to load for visitors of your project page. You can write them inline, like this: <LaTeX inline formula="a^2 + b^2 = c^2" />. Or, you can write them as a block:
+<Table caption="Performance of RoboSpatial-trained models on three spatial reasoning benchmarks.">
+| Model                       | RoboSpatial Test | RoboSpatial-Home | BLINK-Spatial |
+|:----------------------------|:---------------:|:---------------:|:---------------:|
+| **Open-source**             |                |                 |                 |
+| *--2D--*             |                |                 |                 |
+| LLaVA-NeXT                  | 30.3           |23.7           |71.8           |
+| + RoboSpatial               | 60.5    |  42.0               |    **79.0**             |
+| RoboPoint                  | 38.9           |40.2           |  63.6           |
+| + RoboSpatial               | 70.6    |  50.7               |    70.6             |
+| *--3D--*             |                |                 |                 |
+| Embodied Generalist        |     42.8     |       36.2          |     N/A            |
+| + RoboSpatial               | **71.9**    |      **54.7**       |    N/A             |
+| **Baselines**               |            |                 |                 |
+| Molmo                     | 50.1           |   46.9        |   67.1          |
+| GPT-4o                   | 50.8           |   48.6        |    76.2         |
+</Table>
 
-<LaTeX formula="\int_a^b f(x) dx" />
+### Robot Manipulation
 
-## Tables
+<Figure
+    caption="Robotics experiments: the red dot shows the model output (if not present, the model failed to provide a valid point in the image);  green dots are used to show when a model outputs multiple points. The robot motion generator, cuRobo, is used to grasp the item referenced by the generated point. The spatial- prefix indicates model trained with RoboSpatial."
+  >
+    <Image source={robot_exp} altText="Robot experiment results." />
+</Figure>
 
-You can add simple tables using [GitHub Flavored Markdown syntax](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables):
+<Table caption="Task success rate for robot manipulation.">
+| Model                        | Success Rate (%) |
+|:----------------------------|:---------------:|
+| **Open-source**              |                 |
+| LLaVA-NeXT               | 23.7           |
+| + RoboSpatial                | **52.6**    |
+| **Baselines** |            |
+| Molmo                     | 43.8           |
+| GPT-4o                   | 46.9           |
+</Table>
 
-| Model | Accuracy | F1 score | Training time (hours) |
-| :--- | :---: | :---: | :---: |
-| BERT-base | 0.89 | 0.87 | 4.5 |
-| RoBERTa-large | 0.92 | 0.91 | 7.2 |
-| DistilBERT | 0.86 | 0.84 | 2.1 |
-| XLNet | 0.90 | 0.89 | 6.8 |
+{/* | RoboPoint                 | 44.7           |
+| + RoboSpatial                | 46.2        | */}
+
 
 ## BibTeX citation
 
