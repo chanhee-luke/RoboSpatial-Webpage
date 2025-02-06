@@ -1,0 +1,47 @@
+datasets: scannet
+split: train,val
+verbose: True
+qa_gen_options:
+  coordinate_systems:
+    - cameracentric
+    - worldcentric
+    - objectcentric
+  relationship_types:
+    - object-object
+    - object-space
+    - object
+  qa_types:
+    - localization
+    - compatibility
+    - grounding
+  answer_types:
+    - binary
+    - points
+    - bounding_box
+base_output_path: "/mnt/storage/datasets/scene_vqa/"
+
+
+multiscan:
+  dataset_path: "/mnt/storage/datasets/scan_datasets/multiscan/data/MultiScan"
+  image_path: "/media/lusong/extra_1tb/datasets/multiscan/posed_images"
+  output_path: "/mnt/storage/datasets/scene_vqa/multiscan_qa"
+  dataset_properties:
+    sampling_ratio: 0.1
+    num_max_qa: 100
+
+scannet:
+  dataset_path: "/mnt/storage/datasets/scan_datasets/EmbodiedScan/data/scannet"
+  output_path: "/mnt/storage/datasets/scene_vqa/scannet_qa"
+
+3rscan:
+  dataset_path: "/mnt/storage/datasets/scan_datasets/EmbodiedScan/data/3rscan"
+  output_path: "/mnt/storage/datasets/scene_vqa/3rscan_qa"
+
+matterport3d:
+  dataset_path: "/mnt/storage/datasets/scan_datasets/EmbodiedScan/data/matterport3d"
+  output_path: "/mnt/storage/datasets/scene_vqa/matterport3d_qa"
+
+embodiedscan_ann:
+  train: "/Users/song.1855/research/spatialqa/embodiedscan/embodiedscan_infos_train.pkl"
+  val:  "/Users/song.1855/research/spatialqa/embodiedscan/embodiedscan_infos_val.pkl"
+  test: "/Users/song.1855/research/spatialqa/embodiedscan/embodiedscan_infos_test.pkl"
